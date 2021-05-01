@@ -32,9 +32,20 @@ class StopwatchPage extends ConsumerWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                context.read(counterNotifier.notifier).start();
+                if (context.read(counterNotifier).isRunning()) {
+                  context.read(counterNotifier.notifier).stop();
+                } else {
+                  context.read(counterNotifier.notifier).start();
+                }
               },
-              child: Text('Start'),
+              child:
+                  Text(watch(counterNotifier).isRunning() ? 'stop' : 'start'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.read(counterNotifier.notifier).reset();
+              },
+              child: Text('reset'),
             ),
           ],
         ),

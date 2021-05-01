@@ -1,8 +1,5 @@
-import 'dart:async';
-
 class Counter {
   Stopwatch _stopwatch;
-  Timer _timer;
   String _time = '00:00:00';
 
   Counter() {
@@ -11,9 +8,18 @@ class Counter {
 
   Counter start() {
     _stopwatch.start();
-    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
-      return reloadStopwatch();
-    });
+    return this;
+  }
+
+  Counter stop() {
+    _stopwatch.stop();
+    return this;
+  }
+
+  Counter reset() {
+    _stopwatch.stop();
+    _stopwatch.reset();
+    _time = '00:00:00';
     return this;
   }
 
@@ -29,5 +35,9 @@ class Counter {
 
   String time() {
     return _time;
+  }
+
+  bool isRunning() {
+    return _stopwatch.isRunning;
   }
 }
